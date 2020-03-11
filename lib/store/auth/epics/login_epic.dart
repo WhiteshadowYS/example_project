@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:example_project/store/ui/ui_actions.dart';
+import 'package:example_project/store/ui/ui_state.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:redux_epics/redux_epics.dart';
 import 'package:example_project/store/app/app_state.dart';
@@ -16,7 +18,7 @@ Stream<dynamic> loginEpic(Stream<dynamic> actions, EpicStore<AppState> store) {
         new ConcatStream(
           <Stream>[
             new Stream.fromIterable([
-//              ChangeLoading(loadingKey: LoadingKeys.loginInProgress, nextValue: true),
+              ChangeLoading(loadingKey: LoadingKeys.login, nextValue: true),
               DoLogin(
                 email:    action.email,
                 password: action.password,
@@ -37,11 +39,12 @@ Stream<dynamic> loginEpic(Stream<dynamic> actions, EpicStore<AppState> store) {
                     return Observable(
                       new ConcatStream([
                         Stream.fromIterable([
-//                          ChangeLoading(
-//                            loadingKey: LoadingKeys.loginInProgress,
-//                            nextValue: false,
-//                          ),
-                          NavigateToAction.push(ROUTE_LOGIN_PAGE),
+                          ChangeLoading(
+                            loadingKey: LoadingKeys.login,
+                            nextValue: false,
+                          ),
+                          DoSaveUser(user:  nAction.user),
+                          NavigateToAction.push(ROUTE_HOME_PAGE),
                         ]),
                       ]),
                     );
@@ -52,11 +55,11 @@ Stream<dynamic> loginEpic(Stream<dynamic> actions, EpicStore<AppState> store) {
                     return Observable(
                       new ConcatStream([
                         Stream.fromIterable([
-//                          ChangeLoading(
-//                            loadingKey: LoadingKeys.loginInProgress,
-//                            nextValue: false,
-//                          ),
-                        // TODO: SHOW ERROR DIALOG
+                          ChangeLoading(
+                            loadingKey: LoadingKeys.login,
+                            nextValue: false,
+                          ),
+                          DisplayDialog(message: nAction.error.readableError),
                         ]),
                       ]),
                     );
@@ -65,10 +68,10 @@ Stream<dynamic> loginEpic(Stream<dynamic> actions, EpicStore<AppState> store) {
                     return Observable(
                       new ConcatStream([
                         Stream.fromIterable([
-//                          ChangeLoading(
-//                            loadingKey: LoadingKeys.loginInProgress,
-//                            nextValue: false,
-//                          ),
+                          ChangeLoading(
+                            loadingKey: LoadingKeys.login,
+                            nextValue: false,
+                          ),
                         ]),
                       ]),
                     );

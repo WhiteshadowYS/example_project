@@ -26,4 +26,16 @@ class AuthRepository {
     return await AuthService.instance.logout();
   }
 
+  Future<void> saveUserToStorage(AppUser user) async {
+    return await AuthService.instance.saveUserToStorage(user);
+  }
+
+  Future<void> deleteUserFromStorage() async {
+    return await AuthService.instance.deleteUserFromStorage();
+  }
+
+  Future<AppUser> getUserFromStorage() async {
+    return await AuthService.instance.getUserFromStorage();
+  }
+
 }

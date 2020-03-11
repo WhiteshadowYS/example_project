@@ -32,6 +32,16 @@ class LoginSuccess extends BaseAction {
 class LoginFailed extends APIErrorAction {
   LoginFailed({error}) : super(type: 'LoginFailed', error: error);
 }
+
+class DoSaveUser extends BaseAction {
+  final AppUser user;
+
+  DoSaveUser({@required this.user}) : super(type: 'DoSaveUser');
+}
+
+class DoDeleteUser extends BaseAction {
+  DoDeleteUser() : super(type: 'DoDeleteUser');
+}
 // endregion
 
 // region [Logout]

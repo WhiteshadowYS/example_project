@@ -1,5 +1,6 @@
-import 'package:example_project/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:example_project/modules/layouts/dialog_layout/dialog_layout.dart';
+import 'package:example_project/theme/colors.dart';
 
 class MainLayout extends StatelessWidget {
   final Widget child;
@@ -14,7 +15,12 @@ class MainLayout extends StatelessWidget {
         padding: EdgeInsets.all(16),
         width:  double.infinity,
         height: double.infinity,
-        child: child,
+        child: Stack(
+          children: <Widget>[
+            child,
+            DialogLayout(),
+          ],
+        ),
       ),
     );
   }

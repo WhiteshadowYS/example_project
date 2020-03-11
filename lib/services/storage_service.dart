@@ -16,9 +16,7 @@ class LocalStorageService {
 
   static final LocalStorageService _instance = LocalStorageService._privateConstructor();
 
-  static LocalStorageService get instance {
-    return _instance;
-  }
+  static LocalStorageService get instance => _instance;
 
   Future<bool> getValueExistsByKey(StorageKeys key) async {
     return await _service.read(key: storageKeyValues[key]) != null;

@@ -6,4 +6,6 @@ const String ROUTE_SPLASH_SCREEN  = '/ROUTE_SPLASH_SCREEN';
 
 //const String NETWORK_ROUTE_LOGIN = 'http: ....';
 
-typedef void LoginFunction({@required email, @required password});
+const String SUCCESS_EMAIL    = 'admin@gmail.com';
+const String SUCCESS_PASSWORD = 'qwerty';
+
