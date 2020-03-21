@@ -1,5 +1,6 @@
-import 'package:example_project/theme/colors.dart';
 import 'package:flutter/material.dart';
+
+import 'package:example_project/theme/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginTextField extends StatefulWidget {

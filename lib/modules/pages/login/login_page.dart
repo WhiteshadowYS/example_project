@@ -1,14 +1,15 @@
-import 'package:example_project/dictionary/dictionary.dart';
-import 'package:example_project/modules/layouts/main_layout.dart';
-import 'package:example_project/modules/pages/login/login_page_converter.dart';
-import 'package:example_project/modules/pages/login/login_page_view_model.dart';
-import 'package:example_project/modules/shared/widgets/global_button.dart';
-import 'package:example_project/modules/shared/widgets/login_text_field.dart';
-import 'package:example_project/theme/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+
+import 'package:example_project/modules/layouts/main_layout.dart';
+import 'package:example_project/modules/shared/widgets/global_button.dart';
+import 'package:example_project/modules/shared/widgets/login_text_field.dart';
+import 'package:example_project/modules/pages/login/login_page_converter.dart';
+import 'package:example_project/modules/pages/login/login_page_view_model.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+import 'package:example_project/theme/colors.dart';
+import 'package:example_project/dictionary/dictionary.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController     = TextEditingController();
