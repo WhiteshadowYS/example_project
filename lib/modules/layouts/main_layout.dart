@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:example_project/modules/layouts/dialog_layout/dialog_layout.dart';
+
 import 'package:example_project/theme/colors.dart';
+import 'package:example_project/modules/layouts/dialog_layout/dialog_layout.dart';
 
 class MainLayout extends StatelessWidget {
   final Widget child;

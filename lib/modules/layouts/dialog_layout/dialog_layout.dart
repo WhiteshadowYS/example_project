@@ -9,8 +9,8 @@ import 'package:example_project/store/ui/dialog_display.dart';
 import 'package:example_project/modules/layouts/dialog_layout/dialog_layout_view_model.dart';
 import 'package:example_project/modules/layouts/dialog_layout/dialog_layout_converter.dart';
 
-import 'package:example_project/utils/empty_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:example_project/utils/empty_widget.dart';
 
 class DialogLayout extends StatelessWidget {
   @override
@@ -30,8 +30,8 @@ class DialogLayout extends StatelessWidget {
                     return Loader().addLoader(key);
                   } else return EmptyWidget();
                 }).toList(),
-              )
-                  : EmptyWidget(),
+              ) : EmptyWidget(),
+
               vm.store.state.ui.dialogDisplays != null &&
                   vm.store.state.ui.dialogDisplays.isNotEmpty
                   ? Stack(
@@ -39,8 +39,8 @@ class DialogLayout extends StatelessWidget {
                   Future.delayed(Duration(seconds: 2), vm.hideDialog);
                   return SmallDialog(dialog);
                 }).toList(),
-              )
-                  : EmptyWidget(),
+              ) : EmptyWidget(),
+
             ],
           );
         },
