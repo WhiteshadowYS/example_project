@@ -1,0 +1,282 @@
+Index: example_project/lib/modules/pages/home/home_page.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example_project/lib/modules/pages/home/home_page.dart	(revision f0e33a297b5479b8afd4901a6f9267b0294d9c21)
++++ example_project/lib/modules/pages/home/home_page.dart	(date 1586267991262)
+@@ -1,3 +1,4 @@
++import 'package:example_project/modules/pages/player/player.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter_redux/flutter_redux.dart';
+ 
+@@ -17,20 +18,29 @@
+   @override
+   Widget build(BuildContext context) {
+     return StoreConnector(
+-      converter: homePageConverter,
+-      builder: (BuildContext context, HomePageViewModel viewModel) {
+-        return MainLayout(
+-          child: Column(
+-            mainAxisAlignment: MainAxisAlignment.center,
+-            children: <Widget>[
+-              GlobalButton(
+-                onPressed: () => signOut(viewModel),
+-                text: FlutterDictionary.of(context).getHomePageSignOut,
+-              ),
+-            ],
+-          ),
+-        );
+-      }
++        converter: homePageConverter,
++        builder: (BuildContext context, HomePageViewModel viewModel) {
++          return MainLayout(
++            child: Column(
++              mainAxisAlignment: MainAxisAlignment.center,
++              children: <Widget>[
++                GlobalButton(
++                  onPressed: () => signOut(viewModel),
++                  text: FlutterDictionary.of(context).getHomePageSignOut,
++                ),
++                new RaisedButton(
++                  onPressed: () {
++                    Navigator.push(context,
++                        MaterialPageRoute(builder: (context) => MyPlayer()));
++                  },
++                  child: Text(FlutterDictionary.of(context).getGoToYoutube),
++                  color: Colors.blue,
++                  textColor: Colors.white,
++                )
++              ],
++            ),
++          );
++        }
+     );
+   }
+ }
+Index: example_project/pubspec.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example_project/pubspec.yaml	(revision f0e33a297b5479b8afd4901a6f9267b0294d9c21)
++++ example_project/pubspec.yaml	(date 1586267991312)
+@@ -18,6 +18,7 @@
+   google_fonts: ^0.3.9
+   flutter_secure_storage: 3.2.1+1
+   flutter_redux_navigation: 0.4.1
++  youtube_player_flutter: ^6.1.0+4
+ 
+ dev_dependencies:
+   flutter_test:
+Index: example_project/lib/dictionary/dictionary.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example_project/lib/dictionary/dictionary.dart	(revision f0e33a297b5479b8afd4901a6f9267b0294d9c21)
++++ example_project/lib/dictionary/dictionary.dart	(date 1586267840407)
+@@ -25,6 +25,13 @@
+   String get getHomePageTitle           => _localizedValues[locale.languageCode][DictionaryKeys.home_page_title];
+   String get getHomePageSignOut         => _localizedValues[locale.languageCode][DictionaryKeys.home_page_sign_out_button];
+ 
++
++  String get getGoToYoutube   => _localizedValues[locale.languageCode][DictionaryKeys.go_to_youtube];
++  String get getEnterLink   => _localizedValues[locale.languageCode][DictionaryKeys.enter_link];
++  String get getOk   => _localizedValues[locale.languageCode][DictionaryKeys.ok];
++  String get getPlay   => _localizedValues[locale.languageCode][DictionaryKeys.play];
++  String get getStop   => _localizedValues[locale.languageCode][DictionaryKeys.stop];
++
+   String getByKey(DictionaryKeys key) => _localizedValues[locale.languageCode][key];
+ 
+   static const List<String> _rtlLanguages = <String>[
+Index: example_project/pubspec.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example_project/pubspec.lock	(revision f0e33a297b5479b8afd4901a6f9267b0294d9c21)
++++ example_project/pubspec.lock	(date 1586268088305)
+@@ -574,6 +574,13 @@
+       url: "https://pub.dartlang.org"
+     source: hosted
+     version: "1.1.0"
++  webview_media:
++    dependency: transitive
++    description:
++      name: webview_media
++      url: "https://pub.dartlang.org"
++    source: hosted
++    version: "0.1.1+3"
+   xml:
+     dependency: transitive
+     description:
+@@ -588,6 +595,13 @@
+       url: "https://pub.dartlang.org"
+     source: hosted
+     version: "2.2.0"
++  youtube_player_flutter:
++    dependency: "direct main"
++    description:
++      name: youtube_player_flutter
++      url: "https://pub.dartlang.org"
++    source: hosted
++    version: "6.1.0+4"
+ sdks:
+   dart: ">=2.7.0 <3.0.0"
+-  flutter: ">=1.10.0 <2.0.0"
++  flutter: ">=1.12.13+hotfix.5 <2.0.0"
+Index: example_project/lib/dictionary/doctionary_keys.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example_project/lib/dictionary/doctionary_keys.dart	(revision f0e33a297b5479b8afd4901a6f9267b0294d9c21)
++++ example_project/lib/dictionary/doctionary_keys.dart	(date 1586267860280)
+@@ -8,4 +8,10 @@
+ 
+   home_page_title,
+   home_page_sign_out_button,
++
++  go_to_youtube,
++  enter_link,
++  ok,
++  play,
++  stop
+ }
+Index: example_project/lib/dictionary/en.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example_project/lib/dictionary/en.dart	(revision f0e33a297b5479b8afd4901a6f9267b0294d9c21)
++++ example_project/lib/dictionary/en.dart	(date 1586267990741)
+@@ -1,12 +1,17 @@
+ import 'doctionary_keys.dart';
+ 
+ const EN = <DictionaryKeys, String>{
+-  DictionaryKeys.login_page_title:                'Login',
+-  DictionaryKeys.login_page_email:                'Email',
+-  DictionaryKeys.login_page_password:             'Password',
++  DictionaryKeys.login_page_title: 'Login',
++  DictionaryKeys.login_page_email: 'Email',
++  DictionaryKeys.login_page_password: 'Password',
+   DictionaryKeys.login_page_password_is_to_short: 'Password is to short!',
+   DictionaryKeys.login_page_email_is_not_correct: 'Email is not correct',
+-  DictionaryKeys.login_page_login_button:         'Sign In',
+-  DictionaryKeys.home_page_title:                 'Home Page',
+-  DictionaryKeys.home_page_sign_out_button:       'Sign Out',
++  DictionaryKeys.login_page_login_button: 'Sign In',
++  DictionaryKeys.home_page_title: 'Home Page',
++  DictionaryKeys.home_page_sign_out_button: 'Sign Out',
++  DictionaryKeys.go_to_youtube: 'Go to YouTube player',
++  DictionaryKeys.enter_link: 'Enter link',
++  DictionaryKeys.ok: 'Ok',
++  DictionaryKeys.play: 'Play',
++  DictionaryKeys.stop: 'Stop',
+ };
+Index: example_project/lib/modules/pages/player/player.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example_project/lib/modules/pages/player/player.dart	(date 1586267143926)
++++ example_project/lib/modules/pages/player/player.dart	(date 1586267143926)
+@@ -0,0 +1,97 @@
++import 'package:example_project/dictionary/dictionary.dart';
++import 'package:flutter/cupertino.dart';
++import 'package:flutter/material.dart';
++import 'package:youtube_player_flutter/youtube_player_flutter.dart';
++
++class MyPlayer extends StatelessWidget {
++  @override
++  Widget build(BuildContext context) {
++    return Scaffold(
++      body: Container(
++        color: Colors.yellow,
++        child: Column(
++          children: [MyYouTubePlayer()],
++        ),
++      ),
++    );
++  }
++}
++
++class MyYouTubePlayer extends StatefulWidget {
++  @override
++  State<StatefulWidget> createState() => YouTubePlayerWidgetState();
++}
++
++class YouTubePlayerWidgetState extends State {
++  YoutubePlayerController _controller;
++  final YoutubePlayerLinkController = TextEditingController();
++  var isReady = false;
++  var videoUrl = "";
++  var videoLink = 'iLnmTe5Q2Qw';
++
++  @override
++  void initState() {
++    _controller = YoutubePlayerController(
++      initialVideoId: videoLink,
++      flags: YoutubePlayerFlags(
++        mute: false,
++        autoPlay: false,
++        forceHideAnnotation: true,
++      ),
++    );
++    super.initState();
++  }
++
++  @override
++  Widget build(BuildContext context) {
++    return Container(
++      color: Colors.yellow,
++      child: Column(
++        children: [
++          YoutubePlayer(
++            controller: _controller,
++            showVideoProgressIndicator: true,
++            onReady: () {
++              isReady = true;
++            },
++          ),
++          RaisedButton(
++            onPressed: () {
++              if (isReady) _controller.play();
++//  insertWorker(Worker(null, '', ''));
++            },
++            child: Text(FlutterDictionary.of(context).getPlay),
++            color: Colors.blue,
++            textColor: Colors.white,
++          ),
++          RaisedButton(
++            onPressed: () {
++              _controller.pause();
++//  insertWorker(Worker(null, '', ''));
++            },
++            child: Text(FlutterDictionary.of(context).getStop),
++            color: Colors.blue,
++            textColor: Colors.white,
++          ),
++          TextFormField(
++            controller: YoutubePlayerLinkController,
++            decoration: InputDecoration(
++                labelText: FlutterDictionary.of(context).getEnterLink),
++          ),
++          RaisedButton(
++            onPressed: () {
++              setState(() {
++                videoLink = YoutubePlayer.convertUrlToId(
++                    YoutubePlayerLinkController.text);
++                //Не нашел где в плеер обновляется линк, а в контроллере он не может обновится потому что контроллер в initState(). Так что тут пробел.
++              });
++            },
++            child: Text(FlutterDictionary.of(context).getOk),
++            color: Colors.blue,
++            textColor: Colors.white,
++          ),
++        ],
++      ),
++    );
++  }
++}
